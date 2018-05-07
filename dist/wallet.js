@@ -32653,6 +32653,7 @@ class Wallet extends EventEmitter {
 
   constructor(secret) {
     super(); // for EventEmitter
+    this.stellarSdk = StellarSdk;
     this.server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
     if (secret) this.keys = StellarSdk.Keypair.fromSecret(secret);
   }
