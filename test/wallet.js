@@ -60,7 +60,7 @@ describe('Wallet', () => {
 
   });
 
-  describe('#send', async () => {
+  describe('#send()', async () => {
     it('should send to cleanup wallet', async () => {
       var w = TEST_WALLET;
       try {
@@ -74,7 +74,7 @@ describe('Wallet', () => {
     }).timeout(10*1000);
   });
 
-  describe('#trust', async () => {
+  describe('#trust()', async () => {
     it('should create trustline for custom asset', async () => {
       var w = TEST_WALLET;
       var asset = new StellarSdk.Asset('GAFO', CLEANUP_ID);
@@ -96,6 +96,33 @@ describe('Wallet', () => {
       expect(balances.GAFO.asset_issuer).to.equal(CLEANUP_ID);
       return;
 
+    }).timeout(10*1000);
+  });
+
+  describe('#setOptions()', async () => {
+    it('should correctly set flags', async () => {
+      var w = TEST_WALLET;
+      var account;
+      try {
+        await w.setOptions({setFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag})
+        account = await w.account();
+      } catch (err) {
+        expect(err).to.be.undefined;
+      }
+      expect(account.flags.auth_required).to.be.true;
+      expect(account.flags.auth_revocable).to.be.true;
+    }).timeout(10*1000);
+    it('should correctly clear flags', async () => {
+      var w = TEST_WALLET;
+      var account;
+      try {
+        await w.setOptions({clearFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag})
+        account = await w.account();
+      } catch (err) {
+        expect(err).to.be.undefined;
+      }
+      expect(account.flags.auth_required).to.be.false;
+      expect(account.flags.auth_revocable).to.be.false;
     }).timeout(10*1000);
   });
 

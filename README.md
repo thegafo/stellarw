@@ -16,7 +16,7 @@ const wallet = new Wallet('secret');
 // get balances
 wallet.account().then(a => {
   console.log(a.balances);
-})
+});
 
 ```
 
@@ -30,6 +30,6 @@ wallet.account().then(a => {
   // get balances
   wallet.account().then(a => {
     console.log(a.balances);
-  })
+  });
 </script>
 ```
