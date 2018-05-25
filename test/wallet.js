@@ -4,16 +4,13 @@ var Wallet = require('../lib/wallet');
 var chai = require('chai');
 var expect = chai.expect;
 
-var StellarSdk = require('stellar-sdk');
-
-
 var CLEANUP_ID = 'GDXFGXZAXGBEE7UD3SGFPJE7JMFEY4CTW4XNVDRADO7RCPZ6QTOUSTLU';
 var TEST_WALLET = null;
 
 describe('Wallet', () => {
   describe('#constructor()', () => {
     it('should initialize without keys if secret not given', async () => {
-      var w = new Wallet();
+      var w = new Wallet(null, true); // use testnet
       expect(w.keys).to.be.undefined;
     });
     it('should initialize with correct keys if secret given', async () => {
@@ -24,7 +21,7 @@ describe('Wallet', () => {
   });
   describe('#generateKeys()', () => {
     it('should correctly generate keys', async () => {
-      var w = new Wallet();
+      var w = new Wallet(null, true);
       w.keys = await w.generateKeys();
       expect(w.keys.publicKey()).to.be.a('string');
       expect(w.keys.secret()).to.be.a('string');
@@ -32,7 +29,7 @@ describe('Wallet', () => {
   });
   describe('#createAccount()', () => {
     it('new wallet should not have account', async () => {
-      var w = new Wallet();
+      var w = new Wallet(null, true);
       w.keys = await w.generateKeys();
       try {
         var account = await w.account();
@@ -64,7 +61,7 @@ describe('Wallet', () => {
     it('should send to cleanup wallet', async () => {
       var w = TEST_WALLET;
       try {
-        await w.send(CLEANUP_ID, StellarSdk.Asset.native(), '9990');
+        await w.send(CLEANUP_ID, w.stellarSdk.Asset.native(), '9990');
         var account = await w.account();
       } catch (err) {
         expect(err).to.be.undefined;
@@ -77,7 +74,7 @@ describe('Wallet', () => {
   describe('#trust()', async () => {
     it('should create trustline for custom asset', async () => {
       var w = TEST_WALLET;
-      var asset = new StellarSdk.Asset('GAFO', CLEANUP_ID);
+      var asset = new w.stellarSdk.Asset('GAFO', CLEANUP_ID);
       try {
         await w.trust(asset, '1000');
         var account = await w.account();
@@ -104,7 +101,7 @@ describe('Wallet', () => {
       var w = TEST_WALLET;
       var account;
       try {
-        await w.setOptions({setFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag})
+        await w.setOptions({setFlags: w.stellarSdk.AuthRevocableFlag | w.stellarSdk.AuthRequiredFlag})
         account = await w.account();
       } catch (err) {
         expect(err).to.be.undefined;
@@ -116,7 +113,7 @@ describe('Wallet', () => {
       var w = TEST_WALLET;
       var account;
       try {
-        await w.setOptions({clearFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag})
+        await w.setOptions({clearFlags: w.stellarSdk.AuthRevocableFlag | w.stellarSdk.AuthRequiredFlag})
         account = await w.account();
       } catch (err) {
         expect(err).to.be.undefined;
