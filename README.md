@@ -124,6 +124,10 @@ wallet.account().then(account => {
 
 ---
 
+#### `sendWithMemo(recipientId, asset, amount, memoType, memo)`
+
+---
+
 #### `trust(asset, limit)`
 
 ---

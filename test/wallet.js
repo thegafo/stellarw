@@ -61,12 +61,60 @@ describe('Wallet', () => {
     it('should send to cleanup wallet', async () => {
       var w = TEST_WALLET;
       try {
-        await w.send(CLEANUP_ID, w.stellarSdk.Asset.native(), '9990');
+        await w.send(CLEANUP_ID, w.stellarSdk.Asset.native(), '5990');
         var account = await w.account();
       } catch (err) {
         expect(err).to.be.undefined;
       }
-      expect(account.balances[0].balance).to.equal('9.9999900');
+      expect(account.balances[0].balance).to.equal('4009.9999900');
+      return;
+    }).timeout(10*1000);
+  });
+
+  describe('#sendWithMemo(text)', async () => {
+    it('should send with text memo to cleanup wallet', async () => {
+      var w = TEST_WALLET;
+      try {
+        var res = await w.sendWithMemo(CLEANUP_ID, w.stellarSdk.Asset.native(), '2000', 'text', "hello world");
+        console.log(res.hash);
+        var account = await w.account();
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        expect(err).to.be.undefined;
+      }
+      expect(account.balances[0].balance).to.equal('2009.9999800');
+      return;
+    }).timeout(10*1000);
+  });
+
+  describe('#sendWithMemo(hash)', async () => {
+    it('should send with text memo to cleanup wallet', async () => {
+      var w = TEST_WALLET;
+      try {
+        var res = await w.sendWithMemo(CLEANUP_ID, w.stellarSdk.Asset.native(), '1000', 'hash', 'a3b0ee496f6925ddd3404c584cfcf0933e9ee3e0515e8da70e0a18e8a946992d');
+        console.log(res.hash);
+        var account = await w.account();
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        expect(err).to.be.undefined;
+      }
+      expect(account.balances[0].balance).to.equal('1009.9999700');
+      return;
+    }).timeout(10*1000);
+  });
+
+  describe('#sendWithMemo(return)', async () => {
+    it('should send with text memo to cleanup wallet', async () => {
+      var w = TEST_WALLET;
+      try {
+        var res = await w.sendWithMemo(CLEANUP_ID, w.stellarSdk.Asset.native(), '1000', 'return', 'c50961e3b57c71c1bbb6050241d1bc89162dad1043a0167b82875943abfae4a9');
+        console.log(res.hash);
+        var account = await w.account();
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        expect(err).to.be.undefined;
+      }
+      expect(account.balances[0].balance).to.equal('9.9999600');
       return;
     }).timeout(10*1000);
   });
