@@ -4,7 +4,7 @@ var Wallet = require('../lib/wallet');
 var chai = require('chai');
 var expect = chai.expect;
 
-var CLEANUP_ID = 'GDXFGXZAXGBEE7UD3SGFPJE7JMFEY4CTW4XNVDRADO7RCPZ6QTOUSTLU';
+var CLEANUP_ID = 'GCIZOM5TO67EGAH4Y66BJPBGCM2GJCDA3PU4Q5X4BBPPY3RNBYHE36MG';
 var TEST_WALLET = null;
 
 describe('Wallet', () => {

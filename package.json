@@ -1,6 +1,6 @@
 {
   "name": "stellarw",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Node.js Stellar Wallet",
   "main": "index.js",
   "directories": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gafopi/stellarw.git"
+    "url": "git+https://github.com/gafotech/stellarw.git"
   },
   "keywords": [
     "stellar",
@@ -24,14 +24,15 @@
   "author": "GAFO TECH",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gafopi/stellarw/issues"
+    "url": "https://github.com/gafotech/stellarw/issues"
   },
-  "homepage": "https://github.com/gafopi/stellarw#readme",
+  "homepage": "https://github.com/gafotech/stellarw#readme",
   "dependencies": {
-    "request": "^2.87.0",
+    "request": "^2.88.2",
     "stellar-sdk": "^0.8.1"
   },
   "devDependencies": {
+    "browserify": "^16.5.1",
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
   }
