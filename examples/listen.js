@@ -10,8 +10,6 @@ const Wallet = require('../index');
   console.log(wallet.keys.publicKey(), wallet.keys.secret());
   console.log();
 
-  let account = await wallet.account();
-
   wallet.on('tx', tx => {
     console.log(JSON.stringify(tx, null, 2));
   })
