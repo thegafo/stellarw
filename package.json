@@ -29,7 +29,7 @@
   "homepage": "https://github.com/gafotech/stellarw#readme",
   "dependencies": {
     "request": "^2.88.2",
-    "stellar-sdk": "^0.8.1"
+    "stellar-sdk": "^8.2.3"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
